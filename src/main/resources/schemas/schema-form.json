@@ -1,0 +1,61 @@
+{
+  "type" : "object",
+  "id" : "urn:jsonschema:io:gravitee:policy:circuitbreaker:configuration:CircuitBreakerPolicyConfiguration",
+  "title": "Circuit Breaker",
+  "description": "Threshold-based and response-time based Circuit Breaker",
+  "properties" : {
+    "failureRateThreshold": {
+      "title": "Failure rate threshold",
+      "description": "Failure (status code >= 500) rate threshold before the circuit breaker switches to the open state.",
+      "type" : "number",
+      "default": 50,
+      "minimum": 0,
+      "maximum": 100,
+      "exclusiveMaximum": false
+    },
+    "slowCallRateThreshold": {
+      "title": "Slow call rate threshold",
+      "description": "Slow call (response-time > slowCallDurationThreshold) rate threshold before the circuit breaker switches to the open state.",
+      "type" : "number",
+      "default": 100,
+      "minimum": 0,
+      "maximum": 100,
+      "exclusiveMaximum": false
+    },
+    "slowCallDurationThreshold": {
+      "title": "Slow call duration threshold (in millis)",
+      "description": "The duration threshold above which calls are considered as slow and increase the slow calls percentage.",
+      "type" : "integer",
+      "default": 1000,
+      "minimum": 1,
+      "exclusiveMinimum": false
+    },
+    "windowSize" : {
+      "title": "Sliding windows size",
+      "description": "The size of the sliding window which is used to record the outcome of calls when the circuit breaker is closed.",
+      "type" : "number",
+      "default": 100,
+      "minimum": 0,
+      "exclusiveMinimum": false
+    },
+    "waitDurationInOpenState": {
+      "title": "Wait duration in open state (in millis)",
+      "description": "A fixed wait duration which controls how long the circuit breaker should stay open, before it switches to half open.",
+      "type" : "integer",
+      "default": 1000,
+      "minimum": 1,
+      "exclusiveMinimum": false
+    },
+    "redirectToURL": {
+      "title": "Redirect call to URL",
+      "description": "Redirect the call to the given URL instead of returning a '503 Service Unavailable' status (supports EL).",
+      "type" : "string"
+    }
+  },
+  "required": [
+    "failureRateThreshold",
+    "slowCallRateThreshold",
+    "slowCallDurationThreshold",
+    "windowSize"
+  ]
+}
